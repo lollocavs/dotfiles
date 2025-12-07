@@ -69,3 +69,6 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
 - Add configuration with mocha theme
 - Trasparent bar
 
+## Hyprpaper (+backgrounds)
+- Add configuration for backgrounds
+- Set of beatiful wallpapers for desktop image
