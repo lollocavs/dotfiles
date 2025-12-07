@@ -51,4 +51,16 @@ Create/edit `~/.config/starship.toml` for customization. You can start with a pr
 starship preset nerd-font-symbols -o ~/.config/starship.toml
 ```
 
-That's it! Your prompt should now be using Starship.
+## Hyprland
+- Configuration of hyprland for Macbook
+- Add binding for 
+   - Terminal (Kitty): SUPER + RETURN
+   - Browser (Firefox ESR): SUPER + B
+   - File Manager (Thunar): SUPER + E
+   - Lock Screen (Hyprlock): SUPER + L 
+   - Spotlight search (Wofi): SUPER + SPACE
+- Add starting tool:
+   - Waybar (control bar on top)
+   - Hyprpaper (for wallpaper management)
+   - dunst (for the notification center
+ For the cited tools config see the paragraph below.
