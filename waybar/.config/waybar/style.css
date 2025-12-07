@@ -1,0 +1,155 @@
+@import "mocha.css"; 
+
+* {
+    font-family: "MesloLGS Nerd Font Mono Bold";
+    font-size: 16px;
+    min-height: 0;
+    font-weight: bold;
+}
+
+window#waybar {
+    background: transparent;
+    color: @overlay0;
+}
+
+/* Contenitori delle bolle */
+.modules-left,
+.modules-center,
+.modules-right {
+    background: @crust;
+    margin: 8px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modules-left {
+    margin-left: 12px;
+}
+
+.modules-right {
+    margin-right: 12px;
+}
+
+#window {
+    margin: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+button {
+    box-shadow: none;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: @surface0;
+    color: @mauve;
+}
+
+#workspaces button {
+    padding: 4px 8px;
+    margin: 2px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+#workspaces button.focused {
+    background-color: @surface1;
+    color: @rosewater;
+}
+
+#workspaces button.active {
+    background-color: @surface0;
+    color: @mauve;
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+    color: @crust;
+}
+
+#workspaces button:hover {
+    background-color: @surface0;
+}
+
+/* Moduli nella barra destra */
+#pulseaudio,
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#wireplumber,
+#tray,
+#network,
+#mode,
+#scratchpad,
+#upower,
+#custom-power {
+    margin: 2px 4px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: @surface0;
+    transition: all 0.2s ease;
+}
+
+#pulseaudio:hover,
+#clock:hover,
+#battery:hover,
+#network:hover,
+#custom-power:hover {
+    background: @surface1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#clock {
+    color: @maroon;
+}
+
+#pulseaudio {
+    color: @blue;
+}
+
+#network {
+    color: @yellow;
+}
+
+#battery {
+    color: @green;
+}
+
+#temperature {
+    color: @peach;
+}
+
+#upower {
+    color: @lavender;
+}
+
+#custom-power {
+    color: @red;
+    padding: 4px 10px;
+    font-size: 18px;
+}
+
+#idle_inhibitor {
+    margin-right: 12px;
+    color: @green;
+}
+
+#idle_inhibitor.activated {
+    color: @red;
+}
+
+#custom-vpn {
+    color: @lavender;
+    background: @surface0;
+    border-radius: 8px;
+    padding: 4px 12px;
+}

@@ -64,3 +64,8 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
    - Hyprpaper (for wallpaper management)
    - dunst (for the notification center
  For the cited tools config see the paragraph below.
+
+## Waybar
+- Add configuration with mocha theme
+- Trasparent bar
+
