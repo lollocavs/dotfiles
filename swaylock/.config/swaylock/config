@@ -1,0 +1,52 @@
+# =====================================================================
+#  swaylock — sostituisce hyprlock
+#  Layout stow: dotfiles/swaylock/.config/swaylock/config
+#  Palette: Catppuccin Mocha (gli stessi colori di mocha.conf)
+# =====================================================================
+
+# swaylock non ha blur runtime: usa uno sfondo pre-sfocato una volta sola
+#   convert ~/.config/backgrounds/shaded.png -blur 0x8 \
+#           ~/.config/backgrounds/shaded-blur.png
+image=~/.config/backgrounds/shaded-blur.png
+scaling=fill
+
+ignore-empty-password
+show-failed-attempts
+indicator-caps-lock
+
+indicator-radius=110
+indicator-thickness=10
+
+font=JetBrainsMono Nerd Font
+font-size=24
+
+# --- anello ---
+ring-color=cba6f7
+ring-clear-color=f9e2af
+ring-ver-color=89b4fa
+ring-wrong-color=f38ba8
+
+# --- interno ---
+inside-color=313244
+inside-clear-color=313244
+inside-ver-color=313244
+inside-wrong-color=313244
+
+# --- feedback tasti ---
+key-hl-color=a6e3a1
+bs-hl-color=f38ba8
+caps-lock-key-hl-color=f9e2af
+caps-lock-bs-hl-color=f38ba8
+
+# --- testo ---
+text-color=cdd6f4
+text-clear-color=cdd6f4
+text-ver-color=cdd6f4
+text-wrong-color=f38ba8
+
+# --- linee e separatori: trasparenti ---
+line-color=00000000
+line-clear-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+separator-color=00000000

@@ -1,0 +1,302 @@
+# =====================================================================
+#  Sway — MacBook Pro 15" 2014
+#  Migrata da Hyprland. Layout stow: dotfiles/sway/.config/sway/config
+# =====================================================================
+
+# ---------------------------------------------------------------------
+#  VARIABILI
+# ---------------------------------------------------------------------
+set $mod Mod4
+set $term kitty
+set $filemanager thunar
+set $browser firefox
+set $menu wofi --show drun
+
+set $left  h
+set $down  j
+set $up    k
+set $right l
+
+# ---------------------------------------------------------------------
+#  OUTPUT   (era: monitor=,2880x1800@60,auto,1.6)
+#  Verifica il nome reale con:  swaymsg -t get_outputs
+# ---------------------------------------------------------------------
+output * bg ~/.config/backgrounds/shaded.png fill
+output eDP-1 mode 2880x1800@60Hz position 0 0 scale 1.6
+
+# ---------------------------------------------------------------------
+#  INPUT   (era: input { } + touchpad { })
+# ---------------------------------------------------------------------
+input type:keyboard {
+    xkb_layout "it"
+}
+
+input type:touchpad {
+    natural_scroll   enabled
+    tap              enabled
+    dwt              enabled          # disable_while_typing
+    middle_emulation enabled
+    click_method     clickfinger
+    scroll_factor    0.5
+    accel_profile    adaptive
+    pointer_accel    0
+}
+
+focus_follows_mouse yes
+seat seat0 xcursor_theme default 24
+
+# ---------------------------------------------------------------------
+#  GESTURE TRACKPAD   (era: gestures { workspace_swipe })
+#  workspace_swipe_invert = true  ->  swipe destra = workspace precedente
+# ---------------------------------------------------------------------
+bindgesture swipe:3:right workspace prev
+bindgesture swipe:3:left  workspace next
+
+# ---------------------------------------------------------------------
+#  ASPETTO   (era: general { } + Catppuccin Mocha)
+# ---------------------------------------------------------------------
+gaps inner 5
+gaps outer 10
+default_border         pixel 2
+default_floating_border pixel 2
+smart_borders no
+
+font pango:MesloLGS Nerd Font Mono Bold 10
+
+# Sway non supporta i gradienti: il colore attivo diventa il bordo,
+# il secondo colore del gradiente diventa l'indicatore di split.
+#            bordo    sfondo   testo    indicatore  child_border
+client.focused          #33ccff #1e1e2e #cdd6f4 #00ff99 #33ccff
+client.focused_inactive #595959 #1e1e2e #cdd6f4 #595959 #595959
+client.unfocused        #595959 #1e1e2e #a6adc8 #595959 #595959
+client.urgent           #f38ba8 #1e1e2e #cdd6f4 #f38ba8 #f38ba8
+
+# ---------------------------------------------------------------------
+#  AUTOSTART   (era: exec-once)
+# ---------------------------------------------------------------------
+exec dbus-update-activation-environment --systemd \
+     WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
+
+exec --no-startup-id dunst
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id wl-paste --watch cliphist store
+exec --no-startup-id nm-applet --indicator
+exec --no-startup-id blueman-applet
+
+exec --no-startup-id swayidle -w \
+     timeout 300  'swaylock -f' \
+     timeout 600  'swaymsg "output * power off"' \
+     resume       'swaymsg "output * power on"' \
+     before-sleep 'swaylock -f'
+
+# ---------------------------------------------------------------------
+#  WAYBAR   (gestita da sway: si riavvia da sola su `swaymsg reload`)
+# ---------------------------------------------------------------------
+bar {
+    swaybar_command waybar
+}
+
+# ---------------------------------------------------------------------
+#  REGOLE FINESTRE   (era: windowrulev2)
+#  app_id = app native Wayland   |   class = app sotto XWayland
+# ---------------------------------------------------------------------
+for_window [app_id="pavucontrol"]           floating enable
+for_window [app_id="nm-connection-editor"]  floating enable
+for_window [app_id="blueman-manager"]       floating enable
+for_window [app_id="thunar" title="File Operation Progress"] floating enable
+
+for_window [app_id="firefox" title="^Library$"] floating enable
+for_window [app_id="firefox" title="Picture-in-Picture"] \
+    floating enable, sticky enable, resize set 25 ppt 25 ppt, move position 72 ppt 72 ppt
+
+# Opacità
+for_window [app_id="kitty"]  opacity 0.90
+for_window [app_id="thunar"] opacity 0.95
+for_window [app_id="code"]   opacity 0.95
+for_window [class="Code"]    opacity 0.95
+
+# ---------------------------------------------------------------------
+#  APPLICAZIONI
+# ---------------------------------------------------------------------
+bindsym $mod+Return exec $term
+bindsym $mod+e      exec $filemanager
+bindsym $mod+space  exec $menu
+bindsym $mod+b      exec $browser
+
+# ---------------------------------------------------------------------
+#  CONTROLLO FINESTRE
+# ---------------------------------------------------------------------
+bindsym $mod+q       kill
+bindsym $mod+v       floating toggle
+bindsym $mod+f       fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle global
+bindsym $mod+t       sticky toggle
+bindsym $mod+Shift+t layout toggle split
+bindsym $mod+Shift+r reload
+
+# Uscita con conferma (era: $mod+M -> exit, senza rete di sicurezza)
+bindsym $mod+m exec swaynag -t warning \
+    -m 'Uscire dalla sessione sway?' -B 'Esci' 'swaymsg exit'
+
+floating_modifier $mod normal
+
+# ---------------------------------------------------------------------
+#  FOCUS
+# ---------------------------------------------------------------------
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# ---------------------------------------------------------------------
+#  SPOSTARE FINESTRE
+# ---------------------------------------------------------------------
+bindsym $mod+Shift+$left  move left
+bindsym $mod+Shift+$down  move down
+bindsym $mod+Shift+$up    move up
+bindsym $mod+Shift+$right move right
+
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# ---------------------------------------------------------------------
+#  RIDIMENSIONARE (rapido)
+# ---------------------------------------------------------------------
+bindsym $mod+Ctrl+$left  resize shrink width 30px
+bindsym $mod+Ctrl+$right resize grow   width 30px
+bindsym $mod+Ctrl+$up    resize shrink height 30px
+bindsym $mod+Ctrl+$down  resize grow   height 30px
+
+bindsym $mod+Ctrl+Left  resize shrink width 30px
+bindsym $mod+Ctrl+Right resize grow   width 30px
+bindsym $mod+Ctrl+Up    resize shrink height 30px
+bindsym $mod+Ctrl+Down  resize grow   height 30px
+
+# ---------------------------------------------------------------------
+#  WORKSPACE
+# ---------------------------------------------------------------------
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Sposta finestra E segui (era: movetoworkspace)
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
+
+# Sposta finestra SENZA seguire (era: movetoworkspacesilent)
+bindsym $mod+Mod1+1 move container to workspace number 1
+bindsym $mod+Mod1+2 move container to workspace number 2
+bindsym $mod+Mod1+3 move container to workspace number 3
+bindsym $mod+Mod1+4 move container to workspace number 4
+bindsym $mod+Mod1+5 move container to workspace number 5
+
+# Navigazione workspace
+bindsym $mod+Tab       workspace next_on_output
+bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+grave     workspace back_and_forth
+
+bindsym --whole-window $mod+button4 workspace next_on_output
+bindsym --whole-window $mod+button5 workspace prev_on_output
+
+# ---------------------------------------------------------------------
+#  SCRATCHPAD   (era: special workspace "magic")
+# ---------------------------------------------------------------------
+bindsym $mod+s       scratchpad show
+bindsym $mod+Shift+s move scratchpad
+
+# ---------------------------------------------------------------------
+#  TASTI FUNZIONE MACBOOK
+# ---------------------------------------------------------------------
+bindsym --locked XF86MonBrightnessUp   exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+bindsym --locked XF86AudioPlay  exec playerctl play-pause
+bindsym --locked XF86AudioPause exec playerctl play-pause
+bindsym --locked XF86AudioNext  exec playerctl next
+bindsym --locked XF86AudioPrev  exec playerctl previous
+
+# ---------------------------------------------------------------------
+#  SCREENSHOT   (virgolette dritte: le curve rompevano i comandi)
+# ---------------------------------------------------------------------
+bindsym Print exec grim -g "$(slurp)" - | wl-copy && \
+    notify-send "Screenshot" "Area copiata negli appunti"
+bindsym Shift+Print exec grim - | wl-copy && \
+    notify-send "Screenshot" "Schermo intero copiato"
+bindsym $mod+Print exec mkdir -p ~/Pictures/Screenshots && \
+    grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png && \
+    notify-send "Screenshot" "Salvato in ~/Pictures/Screenshots"
+bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
+
+# ---------------------------------------------------------------------
+#  UTILITY
+# ---------------------------------------------------------------------
+# Lock: $mod+L era occupato da "focus right", quindi non ha mai funzionato
+bindsym $mod+Escape exec swaylock -f
+
+bindsym $mod+n exec dunstctl history-pop
+bindsym $mod+c exec cliphist list | wofi --dmenu | cliphist decode | wl-copy
+bindsym $mod+Shift+c exec grim -g "$(slurp -p)" -t ppm - | \
+    convert - -format '%[pixel:p{0,0}]' txt:- | tail -n1 | cut -d' ' -f4 | wl-copy
+
+# ---------------------------------------------------------------------
+#  MODE — RESIZE   (era: submap resize)
+# ---------------------------------------------------------------------
+mode "resize" {
+    bindsym $left  resize shrink width 20px
+    bindsym $right resize grow   width 20px
+    bindsym $up    resize shrink height 20px
+    bindsym $down  resize grow   height 20px
+
+    bindsym Left  resize shrink width 20px
+    bindsym Right resize grow   width 20px
+    bindsym Up    resize shrink height 20px
+    bindsym Down  resize grow   height 20px
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# ---------------------------------------------------------------------
+#  MODE — GAPS   (era: submap gaps, con l'hack hyprctl|grep|awk)
+# ---------------------------------------------------------------------
+mode "gaps" {
+    bindsym plus       gaps inner current plus 1
+    bindsym minus      gaps inner current minus 1
+    bindsym equal      gaps outer current plus 1
+    bindsym underscore gaps outer current minus 1
+    bindsym 0          gaps inner current set 5; gaps outer current set 10
+
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+bindsym $mod+g mode "gaps"
+
+include /etc/sway/config.d/*
