@@ -1,0 +1,44 @@
+# =====================================================================
+#  Hardware — MacBook Pro 15" 2014
+#  Richiede il componente non-free-firmware nelle sorgenti apt
+#  (bootstrap.sh lo abilita da solo).
+# =====================================================================
+
+# --- firmware e microcodice ---
+firmware-linux
+firmware-linux-nonfree
+firmware-misc-nonfree
+firmware-intel-graphics
+intel-microcode
+
+# --- grafica Intel Iris / Haswell ---
+intel-media-va-driver
+mesa-vulkan-drivers
+libgl1-mesa-dri
+vulkan-tools
+
+# --- wifi Broadcom ---
+# Il MacBook Pro 2014 monta tipicamente un BCM4360, gestito da
+# broadcom-sta-dkms (modulo "wl"). I pacchetti b43 servono a chip
+# piu' vecchi: sul sistema attuale erano installati entrambi, cosa
+# che puo' creare conflitti di modulo.
+# Dopo il primo avvio verifica con:  lspci -nn | grep -i network
+# e tieni solo la riga che corrisponde al tuo chip.
+dkms
+broadcom-sta-dkms
+#b43-fwcutter
+#firmware-b43-installer
+
+# --- bluetooth ---
+bluetooth
+bluez
+
+# --- alimentazione, ventole, sensori ---
+tlp
+powertop
+lm-sensors
+macfanctld
+laptop-detect
+
+# --- rete ---
+network-manager

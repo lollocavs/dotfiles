@@ -1,0 +1,36 @@
+# =====================================================================
+#  Sviluppo
+#  Volutamente minimale: la valanga di pacchetti -dev del sistema
+#  precedente serviva a compilare Hyprland. Con Sway dai repo non
+#  serve piu' nulla di tutto quello.
+#  Aggiungi qui solo cio' che ti serve per i tuoi progetti.
+# =====================================================================
+
+# --- toolchain di base ---
+build-essential
+pkg-config
+cmake
+meson
+ninja-build
+
+# --- linguaggi ---
+python3
+python3-pip
+python3-venv
+nodejs
+npm
+
+# --- supporto per i plugin di neovim ---
+# lazy.nvim ricostruisce tutto da lazy-lock.json al primo avvio;
+# questi servono ai plugin che compilano parser o cercano file.
+git
+ripgrep
+fd-find
+unzip
+luarocks
+
+# --- neovim: LSP e formattatori usati da lsp-config / none-ls ---
+# scommenta quelli che usi davvero
+#gopls
+#shellcheck
+#shfmt

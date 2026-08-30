@@ -1,0 +1,70 @@
+# =====================================================================
+#  Desktop Sway — tutto dai repo trixie
+#  Nessuna dipendenza di compilazione: niente meson/ninja/libxcb-*-dev,
+#  che sul sistema precedente servivano solo a compilare Hyprland.
+# =====================================================================
+
+# --- compositore ---
+# sway include anche swaymsg, swaybar e swaynag
+sway
+swaybg
+swayidle
+swaylock
+
+# --- barra e launcher ---
+waybar
+wofi
+
+# --- compatibilita' X11 e portali ---
+xwayland
+xdg-desktop-portal-wlr
+xdg-desktop-portal-gtk
+xdg-user-dirs-gtk
+
+# --- screenshot e appunti ---
+grim
+slurp
+wl-clipboard
+xclip
+# cliphist non e' sempre pacchettizzato: se bootstrap.sh lo segnala
+# mancante, installalo con  go install go.senan.xyz/cliphist@latest
+# oppure prendi il binario dalle release GitHub del progetto.
+cliphist
+
+# --- notifiche ---
+# dunst e mako fanno la stessa cosa: sul sistema attuale erano
+# installati entrambi. La config di sway avvia dunst.
+dunst
+libnotify-bin
+
+# --- audio ---
+# Debian 13 usa pipewire; pactl (che i tuoi binding usano) continua
+# a funzionare tramite pipewire-pulse.
+pipewire
+pipewire-pulse
+wireplumber
+pavucontrol
+
+# --- rete e bluetooth grafici ---
+network-manager-applet
+nm-connection-editor
+blueman
+
+# --- luminosita' e media ---
+brightnessctl
+playerctl
+
+# --- login ---
+greetd
+tuigreet
+seatd
+
+# --- autenticazione grafica (la config sway lo avvia) ---
+polkit-kde-agent-1
+
+# --- tema e font ---
+papirus-icon-theme
+fonts-font-awesome
+fonts-powerline
+fonts-jetbrains-mono
+fonts-noto-color-emoji

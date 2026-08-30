@@ -1,0 +1,56 @@
+# =====================================================================
+#  Applicazioni — dai repo Debian
+#  Quelle fuori dai repo (VSCode, Claude Desktop, Obsidian, Zen)
+#  sono gestite da bootstrap.sh nei passi "repo esterni" e "flatpak".
+# =====================================================================
+
+# --- terminale ed editor ---
+kitty
+neovim
+mousepad
+
+# --- browser ---
+firefox-esr
+
+# --- file manager ---
+# Sul sistema precedente c'erano sia thunar che nautilus; la config
+# di sway lancia thunar. Scommenta nautilus solo se lo vuoi davvero.
+thunar
+thunar-volman
+#nautilus
+
+# --- shell e prompt ---
+# starship e' pacchettizzato in Debian: non serve lo script curl
+# indicato nel vecchio README.
+starship
+bash-completion
+tmux
+
+# --- utilita' da riga di comando ---
+git
+stow
+curl
+wget
+jq
+unzip
+zip
+btop
+lsof
+tree
+ripgrep
+fd-find
+
+# --- sistema ---
+sudo
+flatpak
+gnupg
+ca-certificates
+apt-transport-https
+
+# --- monitoraggio ---
+psensor
+
+# --- virtualizzazione (scommenta se usi VM) ---
+#qemu-system-x86
+#qemu-system-gui
+#virt-manager
